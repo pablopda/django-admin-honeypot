@@ -1,10 +1,7 @@
-from django.conf.urls import include, url
-
-# Uncomment the next two lines to enable the admin:
+from django.urls import path, include
 from django.contrib import admin
-admin.autodiscover()
 
 urlpatterns = [
-    url(r'^admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-    url(r'^secret/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('secret/', admin.site.urls),
 ]

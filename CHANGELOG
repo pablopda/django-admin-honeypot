@@ -1,0 +1,9 @@
+Changelog
+=========
+
+1.2.0 (2023-XX-XX)
+------------------
+* Updated Django compatibility to support versions 3.0 to 4.0
+* Dropped support for Django versions below 3.0
+* Updated Python compatibility to support versions 3.6 to 3.9
+* Updated django-ipware dependency to version 3.0.0 or higher

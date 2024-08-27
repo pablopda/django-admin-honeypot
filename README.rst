@@ -14,38 +14,93 @@ django-admin-honeypot
    :target: https://codeclimate.com/github/dmpayton/django-admin-honeypot
    :alt: Code Climate
 
-
 **django-admin-honeypot** is a fake Django admin login screen to log and notify
 admins of attempted unauthorized access. This app was inspired by discussion
 in and around Paul McMillan's security talk at DjangoCon 2011.
 
-* **Author**: `Derek Payton <http://dmpayton.com/>`_
-* **Version**: 1.1.0
+* **Original Author**: `Derek Payton <http://dmpayton.com/>`_
+* **Current Maintainer**: `Pablo Perez De Angelis <https://github.com/pablopda>`
+* **Version**: 1.2.0
 * **License**: MIT
+
+Features
+========
+
+* Captures unauthorized login attempts
+* Notifies admins of unauthorized access attempts
+* Compatible with Django 3.0, 3.1, 3.2, and 4.0
+* Supports Python 3.6, 3.7, 3.8, and 3.9
 
 Documentation
 =============
 
 http://django-admin-honeypot.readthedocs.io
 
-tl;dr
------
+Quick Start
+===========
 
-* Install django-admin-honeypot from PyPI::
+1. Install django-admin-honeypot from PyPI:
 
-        pip install django-admin-honeypot
+   .. code-block:: bash
 
-* Add ``admin_honeypot`` to ``INSTALLED_APPS``
-* Update your urls.py:
+       pip install django-admin-honeypot
 
-    ::
+2. Add ``admin_honeypot`` to your ``INSTALLED_APPS`` in settings.py:
 
-        urlpatterns = [
-            ...
-            path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-            path('secret/', admin.site.urls),
-        ]
+   .. code-block:: python
 
-* Run ``python manage.py migrate``
+       INSTALLED_APPS = [
+           ...
+           'admin_honeypot',
+           ...
+       ]
 
-NOTE: replace ``secret`` in the url above with your own secret url prefix
+3. Update your urls.py:
+
+   .. code-block:: python
+
+       from django.contrib import admin
+       from django.urls import path, include
+
+       urlpatterns = [
+           ...
+           path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+           path('secret/', admin.site.urls),
+       ]
+
+   NOTE: Replace ``secret`` in the url above with your own secret url prefix
+
+4. Run migrations:
+
+   .. code-block:: bash
+
+       python manage.py migrate
+
+Configuration
+=============
+
+By default, django-admin-honeypot will send an email to all staff users when an unauthorized access attempt is made. You can customize this behavior by adding the following settings to your project's settings.py:
+
+.. code-block:: python
+
+    # Disable email notifications
+    ADMIN_HONEYPOT_EMAIL_ADMINS = False
+
+    # Custom email subject
+    ADMIN_HONEYPOT_EMAIL_SUBJECT = 'Custom Admin Honeypot Subject'
+
+Contributing
+============
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository and clone it locally
+2. Create a new branch for your feature or bug fix
+3. Write tests for your changes
+4. Run the tests with `tox`
+5. If the tests pass, submit a Pull Request
+
+License
+=======
+
+django-admin-honeypot is released under the MIT License. See the bundled `LICENSE` file for details.

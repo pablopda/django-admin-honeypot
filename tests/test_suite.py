@@ -7,7 +7,7 @@ import pytest
 
 from django.conf import settings
 from django.core import mail
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from admin_honeypot.models import LoginAttempt
@@ -32,6 +32,7 @@ class AdminHoneypotTest(TestCase):
     def honeypot_url(self):
         return reverse('admin_honeypot:index')
 
+    @override_settings(ROOT_URLCONF='tests.urls')
     def test_same_content(self):
         """
         The honeypot should be an exact replica of the admin login page,
